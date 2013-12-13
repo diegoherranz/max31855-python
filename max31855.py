@@ -1,7 +1,9 @@
-## Library to read MAX31855 via SPI
+"""Library to read MAX31855 via SPI
 
 # Diego Herranz
 # July 2013
+
+"""
 
 from __future__ import division
 import struct
@@ -12,6 +14,7 @@ class max31855():
         self.spi_device = spi_device
 
     def read_temperature(self):
+        """Returns thermocouple temperature in Celsius degrees"""
         data = self.read_data()
         if data['fault']:
             raise Exception('Thermo-couple fault', 'Short-circuit to VCC: {0}'.format(data['short_circuit_vcc']),
@@ -21,6 +24,14 @@ class max31855():
 
 
     def read_data(self):
+        """Returns a dictionary with all the data that can be read from Max31855:
+            - 'temperature': thermocouple temperature in Celsius degrees
+            - 'fault'
+            - 'internal_temperature': internal temperature in Celsius degrees
+            - short_circuit_vcc: whether the thermocouple is short-circuited to VCC or not
+            - short_circuit_gnd: whether the thermocouple is short-circuited to GND or not
+            - open_circuit: whether the thermocouple is open-circuited"""
+
         with open(self.spi_device, 'rb') as spi_fd:
             data = spi_fd.read(4) # 32 bits.
                        
