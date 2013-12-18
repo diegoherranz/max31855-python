@@ -28,9 +28,9 @@ class max31855():
             - 'temperature': thermocouple temperature in Celsius degrees
             - 'fault'
             - 'internal_temperature': internal temperature in Celsius degrees
-            - short_circuit_vcc: whether the thermocouple is short-circuited to VCC or not
-            - short_circuit_gnd: whether the thermocouple is short-circuited to GND or not
-            - open_circuit: whether the thermocouple is open-circuited"""
+            - 'short_circuit_vcc': whether the thermocouple is short-circuited to VCC or not
+            - 'short_circuit_gnd': whether the thermocouple is short-circuited to GND or not
+            - 'open_circuit': whether the thermocouple is open-circuited or not"""
 
         with open(self.spi_device, 'rb') as spi_fd:
             data = spi_fd.read(4) # 32 bits.
